@@ -1,0 +1,23 @@
+{
+  "name": "playwright_learning",
+  "version": "1.0.0",
+  "description": "This is my repo for learning playwright by myself and from course",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dnychyk/playwright_learning.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/dnychyk/playwright_learning/issues"
+  },
+  "homepage": "https://github.com/dnychyk/playwright_learning#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^24.10.1"
+  }
+}
