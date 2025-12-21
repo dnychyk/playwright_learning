@@ -11,6 +11,6 @@ export class HomePage {
   }
 
   async openProduct(product: string) {
-    await this.page.locator('[data-test="product-name"]', { hasText: product }).click();
+    await this.page.getByTestId('product-name').filter({ hasText: product }).click();
   }
 }
