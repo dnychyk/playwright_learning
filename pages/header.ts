@@ -9,9 +9,9 @@ export class HeaderFragment {
 
   constructor(page: Page) {
     this.page = page;
-    this.home = this.page.locator('[data-test="nav-home"]');
+    this.home = this.page.getByTestId('nav-home');
     this.logo = this.page.getByRole('link', { name: 'Practice Software Testing -' });
-    this.userMenu = this.page.locator('[data-test="nav-menu"]');
-    this.signIn = this.page.locator('[data-test="nav-sign-in"]');
+    this.userMenu = this.page.getByTestId('nav-menu');
+    this.signIn = this.page.getByTestId('nav-sign-in');
   }
 }

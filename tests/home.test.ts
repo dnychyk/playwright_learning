@@ -8,8 +8,8 @@ test('Verify user can view product details', async ({ page }) => {
   await homePage.openProduct('Combination Pliers');
 
   await expect(page).toHaveURL(/product\/.+/);
-  await expect(page.locator('[data-test="product-name"]')).toHaveText('Combination Pliers');
-  await expect(page.locator('[data-test="unit-price"]')).toHaveText('14.15');
-  await expect(page.locator('[data-test="add-to-cart"]')).toBeVisible();
-  await expect(page.locator('[data-test="add-to-favorites"]')).toBeVisible();
+  await expect(page.getByTestId('product-name')).toHaveText('Combination Pliers');
+  await expect(page.getByTestId('unit-price')).toHaveText('14.15');
+  await expect(page.getByTestId('add-to-cart')).toBeVisible();
+  await expect(page.getByTestId('add-to-favorites')).toBeVisible();
 });

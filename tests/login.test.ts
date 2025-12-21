@@ -8,6 +8,6 @@ test('Verify login with valid credentials', async ({ page }) => {
   await loginPage.performLogin('customer@practicesoftwaretesting.com', 'welcome01');
 
   await expect(page).toHaveURL('/account');
-  await expect(page.locator('[data-test="page-title"]')).toHaveText('My account');
-  await expect(page.locator('[data-test="nav-menu"]')).toHaveText('Jane Doe');
+  await expect(loginPage.title).toHaveText('My account');
+  await expect(loginPage.header.userMenu).toHaveText('Jane Doe');
 });
