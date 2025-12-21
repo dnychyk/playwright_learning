@@ -3,9 +3,10 @@ import { HomePage } from '../pages/homepage.page';
 
 test('Verify user can view product details', async ({ page }) => {
   const homePage = new HomePage(page);
+  const product_1 = 'Combination Pliers';
 
   await page.goto('/');
-  await homePage.openProduct('Combination Pliers');
+  await homePage.openProduct(product_1);
 
   await expect(page).toHaveURL(/product\/.+/);
   await expect(page.getByTestId('product-name')).toHaveText('Combination Pliers');
