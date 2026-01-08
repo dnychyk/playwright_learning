@@ -77,13 +77,8 @@ test('Verify user can filter products by category', async ({ page }) => {
   await page.goto('/');
 
   await homePage.filterByCategory(PowerTools.Sander);
-  await expect
-    .poll(
-      async () => {
-        const products = await page.getByTestId('product-name').allTextContents();
-        return products.every((product) => product.includes('Sander'));
-      },
-      { timeout: 10000 }
-    )
-    .toBe(true);
+  await page.waitForResponse(/\/products.*by_category/);
+
+  const products = await page.getByTestId('product-name').allTextContents();
+  expect(products.every((product) => product.includes('Sander'))).toBe(true);
 });
