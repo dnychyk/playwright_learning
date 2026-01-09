@@ -12,34 +12,33 @@ test('Verify user can view product details', async ({ page }) => {
   await homePage.openProduct(product_1);
 
   await expect(page).toHaveURL(/product\/.+/);
-  await expect(page.getByTestId('product-name')).toHaveText('Combination Pliers');
-  await expect(page.getByTestId('unit-price')).toHaveText('14.15');
-  await expect(page.getByTestId('add-to-cart')).toBeVisible();
-  await expect(page.getByTestId('add-to-favorites')).toBeVisible();
+  await expect(homePage.productName).toHaveText('Combination Pliers');
+  await expect(homePage.unitPrice).toHaveText('14.15');
+  await expect(homePage.addToCartBtn).toBeVisible();
+  await expect(homePage.addToFavoritesBtn).toBeVisible();
 });
 
 test('Verify user can add product to cart', async ({ page }) => {
   const homePage = new HomePage(page);
   const product_1 = 'Slip Joint Pliers';
-  const alertMessage = page.getByRole('alert', { name: 'Product added to shopping cart.' });
 
   await page.goto('/');
   await homePage.openProduct(product_1);
 
   await expect(page).toHaveURL(/product\/.+/);
-  await expect(page.getByTestId('product-name')).toHaveText(product_1);
-  await expect(page.getByTestId('unit-price')).toHaveText('9.17');
+  await expect(homePage.productName).toHaveText(product_1);
+  await expect(homePage.unitPrice).toHaveText('9.17');
 
   await homePage.addToCart();
-  await expect(alertMessage).toBeVisible();
-  await expect(alertMessage).toHaveText('Product added to shopping cart.');
-  await expect(alertMessage).toBeHidden({ timeout: 8000 });
-  await expect(page.getByTestId('nav-cart')).toHaveText('1');
+  await expect(homePage.alertMessage).toBeVisible();
+  await expect(homePage.alertMessage).toHaveText('Product added to shopping cart.');
+  await expect(homePage.alertMessage).toBeHidden({ timeout: 8000 });
+  await expect(homePage.cartCount).toHaveText('1');
 
   await homePage.openCart();
-  await expect(page.getByTestId('product-title')).toHaveCount(1);
-  await expect(page.getByTestId('product-title')).toHaveText(product_1);
-  await expect(page.getByTestId('proceed-1')).toBeVisible();
+  await expect(homePage.cartProductTitle).toHaveCount(1);
+  await expect(homePage.cartProductTitle).toHaveText(product_1);
+  await expect(homePage.proceedToCheckoutBtn).toBeVisible();
 });
 
 [
@@ -51,7 +50,7 @@ test('Verify user can add product to cart', async ({ page }) => {
     await page.goto('/');
 
     await homePage.sortProduct(sort);
-    const products = await page.getByTestId('product-name').allTextContents();
+    const products = await homePage.productName.allTextContents();
 
     expect(products).toEqual([...products].sort(compare));
   });
@@ -66,7 +65,7 @@ test('Verify user can add product to cart', async ({ page }) => {
     await page.goto('/');
 
     await homePage.sortProduct(sort);
-    const products = await page.getByTestId('product-price').allTextContents();
+    const products = await homePage.productPrice.allTextContents();
 
     expect(products).toEqual([...products].sort(compare));
   });
@@ -79,6 +78,6 @@ test('Verify user can filter products by category', async ({ page }) => {
   await homePage.filterByCategory(PowerTools.Sander);
   await page.waitForResponse(/\/products.*by_category/);
 
-  const products = await page.getByTestId('product-name').allTextContents();
+  const products = await homePage.productName.allTextContents();
   expect(products.every((product) => product.includes('Sander'))).toBe(true);
 });
