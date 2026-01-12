@@ -6,10 +6,10 @@ test.use({ storageState: 'playwright/.auth/user.json' });
 
 test('Verify user can view product details', async ({ page }) => {
   const homePage = new HomePage(page);
-  const product_1 = 'Combination Pliers';
+  const product = 'Combination Pliers';
 
   await page.goto('/');
-  await homePage.openProduct(product_1);
+  await homePage.openProduct(product);
 
   await expect(page).toHaveURL(/product\/.+/);
   await expect(homePage.productName).toHaveText('Combination Pliers');
@@ -20,13 +20,13 @@ test('Verify user can view product details', async ({ page }) => {
 
 test('Verify user can add product to cart', async ({ page }) => {
   const homePage = new HomePage(page);
-  const product_1 = 'Slip Joint Pliers';
+  const product = 'Slip Joint Pliers';
 
   await page.goto('/');
-  await homePage.openProduct(product_1);
+  await homePage.openProduct(product);
 
   await expect(page).toHaveURL(/product\/.+/);
-  await expect(homePage.productName).toHaveText(product_1);
+  await expect(homePage.productName).toHaveText(product);
   await expect(homePage.unitPrice).toHaveText('9.17');
 
   await homePage.addToCart();
@@ -37,7 +37,7 @@ test('Verify user can add product to cart', async ({ page }) => {
 
   await homePage.openCart();
   await expect(homePage.cartProductTitle).toHaveCount(1);
-  await expect(homePage.cartProductTitle).toHaveText(product_1);
+  await expect(homePage.cartProductTitle).toHaveText(product);
   await expect(homePage.proceedToCheckoutBtn).toBeVisible();
 });
 
