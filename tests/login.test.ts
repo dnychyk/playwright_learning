@@ -1,14 +1,11 @@
-import { expect, test } from '@playwright/test';
-import { LoginPage } from '../src/pages/login.page';
+import { expect, test } from '../src/fixtures';
 import { testUsers } from '../src/data/test-users';
 
-test('Verify login with valid credentials', async ({ page }) => {
-  const loginPage = new LoginPage(page);
-
+test('Verify login with valid credentials', async ({ app, page }) => {
   await page.goto('/auth/login');
-  await loginPage.performLogin(testUsers.customer.email, testUsers.customer.password);
+  await app.loginPage.performLogin(testUsers.customer.email, testUsers.customer.password);
 
   await expect(page).toHaveURL('/account');
-  await expect(loginPage.title).toHaveText('My account');
-  await expect(loginPage.header.userMenu).toHaveText(testUsers.customer.fullName);
+  await expect(app.loginPage.title).toHaveText('My account');
+  await expect(app.loginPage.header.userMenu).toHaveText(testUsers.customer.fullName);
 });

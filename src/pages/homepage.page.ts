@@ -7,14 +7,11 @@ export class HomePage {
 
   productName: Locator;
   productPrice: Locator;
+  cartCount: Locator;
 
   unitPrice: Locator;
   addToCartBtn: Locator;
   addToFavoritesBtn: Locator;
-
-  cartCount: Locator;
-  cartProductTitle: Locator;
-  proceedToCheckoutBtn: Locator;
 
   alertMessage: Locator;
 
@@ -30,14 +27,15 @@ export class HomePage {
     this.addToFavoritesBtn = page.getByTestId('add-to-favorites');
 
     this.cartCount = page.getByTestId('nav-cart');
-    this.cartProductTitle = page.getByTestId('product-title');
-    this.proceedToCheckoutBtn = page.getByTestId('proceed-1');
-
     this.alertMessage = page.getByRole('alert');
   }
 
   async openProduct(product: string) {
     await this.productName.filter({ hasText: product }).click();
+  }
+
+  async openFirstProduct() {
+    await this.productName.first().click();
   }
 
   async addToCart() {

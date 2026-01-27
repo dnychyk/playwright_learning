@@ -1,7 +1,7 @@
 import { Locator, Page } from '@playwright/test';
 import { HeaderFragment } from './header';
 
-export class LoginPage {
+export class AccountPage {
   page: Page;
   header: HeaderFragment;
   title: Locator;
