@@ -1,6 +1,6 @@
-import { testUsers } from '../src/data/test-users';
 import path from 'path';
-import { test as setup } from '../src/fixtures';
+import { testUsers } from '../../src/data/test-users';
+import { test as setup } from '../../src/fixtures';
 
 const authFile = path.join(__dirname, '../playwright/.auth/user.json');
 

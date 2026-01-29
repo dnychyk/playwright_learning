@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { test as base } from '@playwright/test';
 import { App } from './pages/app';
-import path from 'path';
+import { testUsers } from './data/test-users';
 
-const authFile = path.resolve(__dirname, '../playwright/.auth/user.json');
-
+let token: string;
 type MyFixtures = {
   app: App;
   loggedInApp: App;
@@ -15,13 +16,25 @@ export const test = base.extend<MyFixtures>({
     await use(app);
   },
 
-  loggedInApp: async ({ browser }, use) => {
-    const context = await browser.newContext({ storageState: authFile });
-    const page = await context.newPage();
-    const app = new App(page);
+  loggedInApp: async ({ request, page }, use) => {
+    const response = await request.post('https://api.practicesoftwaretesting.com/users/login', {
+      data: {
+        email: testUsers.customer.email,
+        password: testUsers.customer.password,
+      },
+    });
 
+    const jsonData = await response.json();
+    token = jsonData.access_token;
+
+    await page.goto('/');
+    await page.evaluate((token) => {
+      localStorage.setItem('auth-token', token);
+    }, token);
+    await page.reload();
+
+    const app = new App(page);
     await use(app);
-    await context.close();
   },
 });
 
