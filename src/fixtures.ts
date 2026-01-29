@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { test as base } from '@playwright/test';
 import { App } from './pages/app';
 import { testUsers } from './data/test-users';
 
-let token: string;
 type MyFixtures = {
   app: App;
   loggedInApp: App;
@@ -25,7 +25,7 @@ export const test = base.extend<MyFixtures>({
     });
 
     const jsonData = await response.json();
-    token = jsonData.access_token;
+    const token = jsonData.access_token;
 
     await page.goto('/');
     await page.evaluate((token) => {
