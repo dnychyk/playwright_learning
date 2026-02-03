@@ -41,6 +41,22 @@ export default defineConfig({
   projects: [
     { name: 'auth', testMatch: /.*\.setup\.ts/ },
 
+    // Smoke tests - quick sanity checks
+    {
+      name: 'smoke',
+      use: { ...devices['Desktop Chrome'] },
+      dependencies: ['auth'],
+      grep: /@smoke/,
+    },
+
+    // Regression tests - full test suite
+    {
+      name: 'regression',
+      use: { ...devices['Desktop Chrome'] },
+      dependencies: ['auth'],
+      grep: /@regression/,
+    },
+
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },

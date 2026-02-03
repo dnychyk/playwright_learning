@@ -1,7 +1,7 @@
 import { expect, test } from '../src/fixtures';
 import { testUsers } from '../src/data/test-users';
 
-test('Verify login with valid credentials', async ({ app, page }) => {
+test('Verify login with valid credentials', { tag: ['@smoke', '@regression'] }, async ({ app, page }) => {
   await page.goto('/auth/login');
   await app.loginPage.performLogin(testUsers.customer.email, testUsers.customer.password);
 

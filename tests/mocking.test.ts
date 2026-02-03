@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { expect, test } from '../src/fixtures';
 
-test('Verify user can view product details', async ({ app, page }) => {
+test('Verify user can view product details', { tag: '@regression' }, async ({ app, page }) => {
   await page.route('https://api.practicesoftwaretesting.com/products*', async (route) => {
     const response = await route.fetch();
     const json = await response.json();

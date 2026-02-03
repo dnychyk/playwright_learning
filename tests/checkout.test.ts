@@ -1,7 +1,7 @@
 import { expect, test } from '../src/fixtures';
 import { getExpirationDate } from '../src/utils/date.helper';
 
-test('Verify user can buy the product', async ({ loggedInApp }) => {
+test('Verify user can buy the product', { tag: ['@smoke', '@regression'] }, async ({ loggedInApp }) => {
   const expirationDate = getExpirationDate(3);
 
   await loggedInApp.page.goto('/');

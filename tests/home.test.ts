@@ -1,7 +1,7 @@
 import { PowerTools } from '../src/enums/category-filter.enum';
 import { expect, test } from '../src/fixtures';
 
-test('Verify user can view product details', async ({ app, page }) => {
+test('Verify user can view product details', { tag: ['@smoke', '@regression'] }, async ({ app, page }) => {
   const product = 'Combination Pliers';
 
   await page.goto('/');
@@ -14,7 +14,7 @@ test('Verify user can view product details', async ({ app, page }) => {
   await expect(app.homePage.addToFavoritesBtn).toBeVisible();
 });
 
-test('Verify user can add product to cart', async ({ app, page }) => {
+test('Verify user can add product to cart', { tag: '@regression' }, async ({ app, page }) => {
   const product = 'Slip Joint Pliers';
 
   await page.goto('/');
@@ -40,31 +40,39 @@ test('Verify user can add product to cart', async ({ app, page }) => {
   { sort: 'Name (A - Z)', direction: 'ASC', compare: (a: string, b: string) => a.localeCompare(b) },
   { sort: 'Name (Z - A)', direction: 'DESC', compare: (a: string, b: string) => b.localeCompare(a) },
 ].forEach(({ sort, direction, compare }) => {
-  test(`Verify user can perform sorting by name in ${direction} order`, async ({ app, page }) => {
-    await page.goto('/');
+  test(
+    `Verify user can perform sorting by name in ${direction} order`,
+    { tag: '@regression' },
+    async ({ app, page }) => {
+      await page.goto('/');
 
-    await app.homePage.sortProduct(sort);
-    const products = await app.homePage.productName.allTextContents();
+      await app.homePage.sortProduct(sort);
+      const products = await app.homePage.productName.allTextContents();
 
-    expect(products).toEqual([...products].sort(compare));
-  });
+      expect(products).toEqual([...products].sort(compare));
+    },
+  );
 });
 
 [
   { sort: 'Price (High - Low)', direction: 'ASC', compare: (a: string, b: string) => a.localeCompare(b) },
   { sort: 'Price (Low - High)', direction: 'DESC', compare: (a: string, b: string) => b.localeCompare(a) },
 ].forEach(({ sort, direction, compare }) => {
-  test(`Verify user can perform sorting by price in ${direction} order`, async ({ app, page }) => {
-    await page.goto('/');
+  test(
+    `Verify user can perform sorting by price in ${direction} order`,
+    { tag: '@regression' },
+    async ({ app, page }) => {
+      await page.goto('/');
 
-    await app.homePage.sortProduct(sort);
-    const products = await app.homePage.productPrice.allTextContents();
+      await app.homePage.sortProduct(sort);
+      const products = await app.homePage.productPrice.allTextContents();
 
-    expect(products).toEqual([...products].sort(compare));
-  });
+      expect(products).toEqual([...products].sort(compare));
+    },
+  );
 });
 
-test('Verify user can filter products by category', async ({ app, page }) => {
+test('Verify user can filter products by category', { tag: '@regression' }, async ({ app, page }) => {
   await page.goto('/');
 
   await app.homePage.filterByCategory(PowerTools.Sander);
